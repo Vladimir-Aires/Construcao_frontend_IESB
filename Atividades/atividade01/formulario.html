@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário</title>
+    <style>
+        *{
+            margin-bottom: 20px;
+        }
+        .botao-retorno{
+            text-decoration: none;
+            color: black;
+        }
+
+        #hobbies-opcoes{
+            border: 2px solid black;
+            padding: 5px 0px 0px 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cadastro de Usuário</h1>
+    <form action="">
+        <label for="nome">Nome:</label>
+        <input type="text"> <br>
+        <label for="">Telefone:</label>
+        <input type="text"> <br>
+        <label for="">Email</label>
+        <input type="text"> <br>
+        <label for="">Senha:</label>
+        <input type="password"> <br>
+        <label for="">Sexo:</label>
+        <input type="radio" id="masculino" value="masculino" name="sexo"> Masculino
+        <input type="radio" id="feminino" value="masculino" name="sexo"> Feminino <br>
+        <label for="">UF</label>
+        <select name="uf" id="uf"> 
+            <option value="DF">DF</option>
+            <option value="BA">BA</option>
+            <option value="RJ">RJ</option>
+        </select> <br>
+        <label for="">Hobbies</label> 
+        <div id="hobbies-opcoes">
+            <input type="checkbox">Futebol
+            <input type="checkbox">Xadrez
+            <input type="checkbox">Esportes
+            <input type="checkbox">Musica
+            <input type="checkbox">Cinema
+            <input type="checkbox">Leitura
+        </div>
+        <label for="">Observação:</label> <br>
+        <textarea name="obs" id="obs" cols="30" rows="10"></textarea> <br>
+        
+        <button type="button"><a href="index.html" class="botao-retorno">Voltar</a></button>
+        <input type="reset" value="Limpar">
+        <input type="submit" value="Salvar">
+        
+        
+
+
+    </form>
+</body>
+</html>

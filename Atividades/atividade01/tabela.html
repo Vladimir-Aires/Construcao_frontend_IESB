@@ -3,9 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Tabela</title>
+    <style>
+       thead{
+            text-align: center;
+            font-weight: bold;
+       }
+       tbody{
+        text-align: left;
+        
+       }
+       table, tr, td{
+        border: 1px solid black;
+        border-collapse: collapse;
+        padding: 5px;
+       }
+
+    </style>
 </head>
 <body>
-    
+    <button type="button"><a href="index.html" class="botao-retorno">Voltar</a></button>
+    <h1>Tabela de Contatos</h1>
+    <table>
+        <thead>
+            <tr>
+                <td rowspan="2">Nome</td>
+                <td colspan="2">Contatos</td>
+                <td colspan="3">Endereços</td>
+            </tr>
+            <tr>
+                <td>Telefone</td>
+                <td>Email</td>
+                <td>CEP</td>
+                <td>UF</td>
+                <td>Cidade</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>João Paulo</td>
+                <td>0619000007</td>
+                <td>aluno1@gmail.com</td>
+                <td>72.915-024</td>
+                <td>GO</td>
+                <td>Águas-Lindas</td>
+
+            </tr>
+            <tr>
+                <td>Maria João</td>
+                <td>0619000008</td>
+                <td>aluno2@gmail.com</td>
+                <td>72.915-024</td>
+                <td>GO</td>
+                <td>Águas-Lindas</td>
+
+            </tr>
+            <tr>
+                <td>Ronaldo João</td>
+                <td>0619000009</td>
+                <td>aluno3@gmail.com</td>
+                <td>72.915-024</td>
+                <td>GO</td>
+                <td>Águas-Lindas</td>
+
+            </tr>
+            <tr>
+                <td>Pedro João</td>
+                <td>0619000010</td>
+                <td>aluno4@gmail.com</td>
+                <td>72.915-024</td>
+                <td>GO</td>
+                <td>Águas-Lindas</td>
+
+            </tr>
+            <tr>
+                <td>Ronaldo Pedro</td>
+                <td>0619000011</td>
+                <td>aluno5@gmail.com</td>
+                <td>72.915-024</td>
+                <td>GO</td>
+                <td>Águas-Lindas</td>
+
+            </tr>
+        </tbody>
+    </table>
 </body>
 </html>

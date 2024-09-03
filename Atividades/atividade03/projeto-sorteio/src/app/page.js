@@ -1,20 +1,12 @@
-import Conjunto from "./components/GeradorAleatorio"
-
+import Conjunto from "./components/GeradorAleatorio";
+import Logo from "./components/Logo";
 
 
 
 export default function Principal(){
   return(
     <>
-     
-        
-        <div class="megaSena">
-          <h1>Mega Sena</h1>
-        </div>
-        
-      
-
-     <h2>Número Sorteados:</h2>
+      <Logo />
      <Conjunto />
     </>
   )

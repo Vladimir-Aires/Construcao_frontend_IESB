@@ -6,11 +6,12 @@ import Cabecalho from "./Cabecalho";
 import Familia from "./Familia";
 import Filho from "./Filho";
 import ImagemAleatoria from "./ImagemAleatoria";
+import Pagina from "../components/Pagina";
 
 export default function FundamentosPage(){
 
     return(
-        <Fragment>
+        <Pagina titulo='Fundamentos'>
             <Cabecalho titulo ='SOBRE REACT' descricao='Aprendendo sobre propriedades, componentes, estilos CSS em react, etc'></Cabecalho>
             <hr></hr>
             <h1>Apresentações</h1>
@@ -37,7 +38,7 @@ export default function FundamentosPage(){
             <ImagemAleatoria></ImagemAleatoria>
             <ImagemAleatoria></ImagemAleatoria>
             
-            </Fragment>
+            </ Pagina>
 
     
     )

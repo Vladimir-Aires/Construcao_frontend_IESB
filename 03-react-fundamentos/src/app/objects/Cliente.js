@@ -1,3 +1,5 @@
+'use client'
+
 import { Card, ListGroup } from "react-bootstrap";
 
 export default function Cliente(props) {
@@ -6,10 +8,9 @@ export default function Cliente(props) {
         <Card>
             <Card.Img src={imagem}></Card.Img>
             <ListGroup variant="flush">
-                <ListGroup.Item>Cras justo odio</ListGroup.Item>
-                <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-                <ListGroup.Item>Morbi leo risus</ListGroup.Item>
-                <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
+                <ListGroup.Item>Nome: {nome} {sobreNome}</ListGroup.Item>
+                <ListGroup.Item>Idade: {idade} anos</ListGroup.Item>
+               
             </ListGroup>
         </Card>
     );

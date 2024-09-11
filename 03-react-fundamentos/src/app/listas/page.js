@@ -1,12 +1,15 @@
-'use client'
+"use client";
 
-import React from "react";
 import Pagina from "../components/Pagina";
 import { Carousel, CarouselItem, Col, Row, Table } from "react-bootstrap";
 
 export default function page() {
     const carros = ["Palio", "HB20", "S10", "ECO-SPORT"];
-    const images = ['https://picsum.photos/100?random=1', 'https://picsum.photos/100?random=2', 'https://picsum.photos/100?random=3'];
+    const images = [
+        "https://picsum.photos/700?random=1",
+        "https://picsum.photos/700?random=2",
+        "https://picsum.photos/700?random=3",
+    ];
 
     return (
         <Pagina titulo="Listas">
@@ -27,8 +30,8 @@ export default function page() {
             </Row>
 
             <Row>
-                <Table>
-                    <thead>
+                <Table striped bordered hover>
+                    <thead className="table-primary">
                         <tr>
                             <th>Carro</th>
                         </tr>
@@ -47,12 +50,16 @@ export default function page() {
 
             <Row>
                 <Carousel>
-                    {images.map(imagem => {
+                    {images.map((imagem) => {
                         return (
                             <CarouselItem>
-                                <img src={imagem} width={700} height={700}></img>
+                                <img
+                                    src={imagem}
+                                    width={700}
+                                    height={700}
+                                ></img>
                             </CarouselItem>
-                        )
+                        );
                     })}
                 </Carousel>
             </Row>

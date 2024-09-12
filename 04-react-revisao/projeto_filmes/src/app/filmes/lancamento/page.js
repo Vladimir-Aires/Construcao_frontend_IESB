@@ -1,8 +1,9 @@
+
 "use client";
 
 import { useEffect, useState } from "react";
-import apiFilmes from "../api/apiFilmes";
-import Pagina from "../components/Pagina";
+import apiFilmes from "@/app/api/apiFilmes";
+import Pagina from "@/app/components/Pagina";
 import { Button, Card, Col, Row } from "react-bootstrap";
 
 export default function page() {
@@ -13,7 +14,7 @@ export default function page() {
     }, []);
 
     async function buscarFilmes() {
-        const result = await apiFilmes.get("/movie/popular?language=pt-BR");
+        const result = await apiFilmes.get("/movie/upcoming?language=pt-BR");
         console.log(result.data.results);
 
         const filmesRecebidos = result.data.results;
@@ -21,7 +22,7 @@ export default function page() {
     }
 
     return (
-        <Pagina titulo="Filmes Populares">
+        <Pagina titulo="Em Lançamento">
             <Row md={4} sm={2}>
                 {filmes.map((filme) => {
                     return (
@@ -43,7 +44,9 @@ export default function page() {
                                     </p>
                                 </Card.Body>
                                 <Card.Footer className="text-center">
-                                    <Button href={'/filmes/' + filme.id}>Detalhes</Button>
+                                    <Button href={"/filmes/" + filme.id}>
+                                        Detalhes
+                                    </Button>
                                 </Card.Footer>
                             </Card>
                         </Col>

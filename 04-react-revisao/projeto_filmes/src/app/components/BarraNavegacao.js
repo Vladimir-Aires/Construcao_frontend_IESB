@@ -20,6 +20,15 @@ export default function BarraNavegacao() {
                                 <NavDropdown.Item href="/filmes">
                                     Filmes Populares
                                 </NavDropdown.Item>
+                                <NavDropdown.Item href="/filmes/top">
+                                    Melhores Avaliados
+                                </NavDropdown.Item>
+                                <NavDropdown.Item href="/filmes/cartaz">
+                                    Em Cartaz
+                                </NavDropdown.Item>
+                                <NavDropdown.Item href="/filmes/lancamento">
+                                    Em Lançamento
+                                </NavDropdown.Item>
                             </NavDropdown>
                             <Nav.Link href="#home">Home</Nav.Link>
                         </Nav>

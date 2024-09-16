@@ -2,9 +2,9 @@
 
 import { Col, Image, ListGroup } from "react-bootstrap";
 
-export default function DetalheUsuario(props) {
+export default function DetalheUsuario({detailUsuario}) {
 
-    const {firstName, maidenName, lastName, age, image, email, phone, gender, birthDate, university } = props.usuario;
+    const {firstName, maidenName, lastName, age, image, email, phone, gender, birthDate, university } = detailUsuario;
   return (
     <>
     <Col sm={3}>

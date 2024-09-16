@@ -27,7 +27,7 @@ export default function page() {
   return (
     <Pagina titulo='Detalhes do Usuário'>
         <Row className="mt-3">
-          <DetalheUsuario usuario={usuario}/>
+          <DetalheUsuario detailUsuario={usuario}/>
         </Row>
     </Pagina>
   )

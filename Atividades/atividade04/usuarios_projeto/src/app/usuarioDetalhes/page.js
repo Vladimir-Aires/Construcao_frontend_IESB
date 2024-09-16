@@ -16,7 +16,9 @@ export default function page() {
   }, [])
 
   async function buscaAxios() {
-    const busca = await axios.get('https://dummyjson.com/users/1')
+
+    const idAleatorio = Math.round(Math.random() * 30)
+    const busca = await axios.get(`https://dummyjson.com/users/${idAleatorio}`)
 
     const resposta = busca.data;
     console.log(resposta)

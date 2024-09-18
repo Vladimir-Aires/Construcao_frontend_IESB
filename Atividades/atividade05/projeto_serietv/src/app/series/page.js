@@ -50,7 +50,7 @@ serie.poster_path}/>
                     
                    </Card.Body>
                    <Card.Footer className="text-center">
-                      <Button href={'/filmes/' + serie.id} className="bg-info border border-0">Detalhes</Button>
+                      <Button href={'/series/' + serie.id} className="bg-info border border-0">Detalhes</Button>
                    </Card.Footer>
                   </Card>
                 

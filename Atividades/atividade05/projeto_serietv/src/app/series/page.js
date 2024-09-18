@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import EstruturaPagina from "../components/EstruturaPagina";
 import apiSeries from "../api/apiSeries";
-import { Card, CardBody, CardImg, Col, Row } from "react-bootstrap";
+import { Button, Card, Col, Row } from "react-bootstrap";
 
 
 export default function page() {
@@ -36,20 +36,21 @@ serie.poster_path}/>
 
                    <Card.Body>
                     <Card.Title>
-                      {serie.name}
+                      <h4>{serie.name}</h4>
+                      
                     </Card.Title>
                     <Card.Text>
                       <p>
-                        Nota:{} <br />
-                        Lançamento:{}
+                        <b>Nota:</b> {serie.vote_average} <br />
+                        <b>Lançamento:</b> {serie.first_air_date}
                       </p>
                       
                     </Card.Text>
                       
                     
                    </Card.Body>
-                   <Card.Footer>
-
+                   <Card.Footer className="text-center">
+                      <Button href={'/filmes/' + serie.id} className="bg-info border border-0">Detalhes</Button>
                    </Card.Footer>
                   </Card>
                 

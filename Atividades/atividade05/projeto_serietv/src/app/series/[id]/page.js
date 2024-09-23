@@ -64,7 +64,7 @@ export default function page(props) {
                                 <tr>
                                     <td><b>Gênero:</b></td>
                                     <td>{serie.genres.map((genero) => {
-                                      return genero.name
+                                      return (`${genero.name}, `) 
                                     })}</td>
                                     
                                 </tr>

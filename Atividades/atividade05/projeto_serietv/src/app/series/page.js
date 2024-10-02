@@ -9,6 +9,7 @@ import { Button, Card, Col, Row } from "react-bootstrap";
 export default function page() {
 
     const [series, setSeries] = useState([])
+    
 
     useEffect(() => {
         buscaSeries();

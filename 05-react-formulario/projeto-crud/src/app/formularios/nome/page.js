@@ -3,6 +3,8 @@
 import Pagina from "@/components/Pagina";
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
+import { FaCalendarCheck } from "react-icons/fa";
+import { IoTrashBin } from "react-icons/io5";
 
 export default function FormulariosNomePage() {
     const [nome, setNome] = useState();
@@ -58,8 +60,8 @@ export default function FormulariosNomePage() {
                     <Form.Text>Informe o seu email</Form.Text>
                 </Form.Group>
 
-                <Button type="submit">Enviar</Button>
-                <Button onClick={reset}>Limpar</Button>
+                <Button type="submit"> <FaCalendarCheck /> Enviar</Button>
+                <Button onClick={reset}> <IoTrashBin /> Limpar</Button>
             </Form>
         </Pagina>
     );

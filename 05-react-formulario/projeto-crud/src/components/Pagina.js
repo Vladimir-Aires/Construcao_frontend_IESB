@@ -14,6 +14,9 @@ export default function Pagina(props) {
                             <NavDropdown.Item href="/formularios/nome">
                                 Nome
                             </NavDropdown.Item>
+                            <NavDropdown.Item href="/formularios/imc">
+                                Calculadora de IMC
+                            </NavDropdown.Item>
                             
                         </NavDropdown>
                     </Nav>

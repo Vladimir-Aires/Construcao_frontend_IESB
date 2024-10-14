@@ -24,11 +24,11 @@ export default function Pagina({titulo, children}) {
             </Navbar>
 
             {/* título informativo */}
-            <div className="bg-secondary text-white text-center py-4">
+            <div className="bg-secondary text-white text-center py-3">
                 <h1 className="display-5">{titulo}</h1>
             </div>
             {/* conteúdo */}
-            <Container className="mt-4">
+            <Container className="mt-10">
                 {children}
             </Container>
         </>

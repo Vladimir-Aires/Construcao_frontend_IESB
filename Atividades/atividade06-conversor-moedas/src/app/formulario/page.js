@@ -3,10 +3,10 @@
 import Pagina from "@/components/Pagina";
 
 
-export default function HomePage() {
+export default function Conversor() {
   return (
-    <Pagina titulo="Página Principal">
-
+    <Pagina titulo="Conversor de Moedas">
+        
     </Pagina>
   )
 }

@@ -3,6 +3,8 @@
 import Pagina from "@/components/Pagina";
 import { useState } from "react";
 import { Button, CardImg, Form, Modal } from "react-bootstrap";
+import { FaMoneyBillTransfer } from "react-icons/fa6";
+import { GrClearOption } from "react-icons/gr";
 
 export default function Conversor() {
     const [real, setReal] = useState(0.0);
@@ -89,10 +91,10 @@ export default function Conversor() {
 
                 <Form.Group className="my-3">
                     <Button className="me-2" variant="success" type="submit">
-                        Converter
+                    <FaMoneyBillTransfer /> Converter
                     </Button>
 
-                    <Button variant="secondary" onClick={reset}>Limpar</Button>
+                    <Button variant="secondary" onClick={reset}> <GrClearOption /> Limpar</Button>
                 </Form.Group>
             </Form>
 

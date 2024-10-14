@@ -26,15 +26,15 @@ export default function page() {
 
         
 
-        if (classificacao < 18.5) {
+        if (resultIMC < 18.5) {
             classificacao = "Abaixo do Peso";
-        } else if (classificacao >= 18.5 && classificacao < 25) {
+        } else if (resultIMC >= 18.5 && classificacao < 25) {
             classificacao = "Peso Normal";
-        } else if (classificacao >= 25 && classificacao < 29.9) {
+        } else if (resultIMC >= 25 && classificacao < 29.9) {
             classificacao = "Excesso de Peso";
-        } else if (classificacao >= 30) {
+        } else if (resultIMC >= 30) {
             classificacao = "Obesidade";
-        } else if (classificacao >= 35) {
+        } else if (resultIMC >= 35) {
             classificacao = "Obesidade Extrema";
         }
 

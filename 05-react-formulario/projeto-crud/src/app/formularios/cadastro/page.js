@@ -347,9 +347,108 @@ export default function CadastroPage() {
                             </Form.Group>
                         </Row>
 
+                        {/* dados acadêmicos */}
+                        <div className="text-center">
+                            <h3 className="display-6">Dados Acadêmicos</h3>
+                            <hr></hr>
+                        </div>
+
+                        <Row className="mb-2">
+                            <Form.Group as={Col}>
+                                <Form.Label>Faculdade:</Form.Label>
+                                <Form.Select
+                                    name="faculdade"
+                                    value={values?.faculdade}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    isValid={
+                                        touched?.faculdade && !errors?.faculdade
+                                    }
+                                    isInvalid={
+                                        touched?.faculdade &&
+                                        !!errors?.faculdade
+                                    }
+                                >
+                                    <option>Selecione</option>
+                                    <option>IESB SUL</option>
+                                    <option>IESB NORTE</option>
+                                    <option>IESB OESTE</option>
+                                </Form.Select>
+                                <Form.Control.Feedback type="invalid">
+                                    {errors?.faculdade}
+                                </Form.Control.Feedback>
+                            </Form.Group>
+
+                            <Form.Group as={Col}>
+                                <Form.Label>Curso:</Form.Label>
+                                <Form.Select
+                                    name="curso"
+                                    value={values?.curso}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    isValid={touched?.curso && !errors?.curso}
+                                    isInvalid={
+                                        touched?.curso && !!errors?.curso
+                                    }
+                                >
+                                    <option>Selecione</option>
+                                    <option>Análise e Desenvolvimento de Sistemas</option>
+                                    <option>Jogos Digitais</option>
+                                    <option>Enfermagem</option>
+                                </Form.Select>
+                                <Form.Control.Feedback type="invalid">
+                                    {errors?.curso}
+                                </Form.Control.Feedback>
+                            </Form.Group>
+
+                            <Form.Group as={Col}>
+                                <Form.Label>Período:</Form.Label>
+                                <Form.Select
+                                    name="periodo"
+                                    value={values?.periodo}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    isValid={touched?.periodo && !errors?.periodo}
+                                    isInvalid={
+                                        touched?.periodo && !!errors?.periodo
+                                    }
+                                >
+                                    <option>Selecione</option>
+                                    <option>Matutino</option>
+                                    <option>Vespertino</option>
+                                    <option>Noturno</option>
+                                </Form.Select>
+                                <Form.Control.Feedback type="invalid">
+                                    {errors?.periodo}
+                                </Form.Control.Feedback>
+                            </Form.Group>
+                        </Row>
+
+                        <Row>
+                        <Form.Group as={Col} md={4}>
+                                <Form.Label>Matrícula:</Form.Label>
+                                <Form.Control
+                                    name="matricula"
+                                    type="text"
+                                    value={values.matricula}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    isValid={
+                                        touched.matricula && !errors.matricula
+                                    }
+                                    isInvalid={
+                                        touched.matricula && !!errors.matricula
+                                    }
+                                />
+                                <Form.Control.Feedback type="invalid">
+                                    {errors.matricula}
+                                </Form.Control.Feedback>
+                            </Form.Group>
+                        </Row>
+
                         {/* botões */}
 
-                        <Form.Group className="text-end">
+                        <Form.Group className="text-end mb-5">
                             <Button onClick={handleReset} className="me-2">
                                 Limpar
                             </Button>

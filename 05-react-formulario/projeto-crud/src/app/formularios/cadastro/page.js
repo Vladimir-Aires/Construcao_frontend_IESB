@@ -4,10 +4,17 @@ import Pagina from "@/components/Pagina";
 import { Formik } from "formik";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import * as Yup from "yup";
+import ReactInputMask from "react-input-mask";
 
 export default function CadastroPage() {
-    function cadastrar(dados) {
-        console.log(dados);
+    function cadastrar(aluno) {
+        console.log(aluno);
+
+        const alunos = JSON.parse(localStorage.getItem('alunos')) || []
+
+        alunos.push(aluno)
+
+        localStorage.setItem('alunos', JSON.stringify(alunos))
     }
 
     const initialValues = {
@@ -29,6 +36,7 @@ export default function CadastroPage() {
         curso: "",
         periodo: "",
         matricula: "",
+        foto: "",
     };
 
     const validationSchema = Yup.object().shape({
@@ -53,6 +61,7 @@ export default function CadastroPage() {
         curso: Yup.string().required("Campo Obrigatório!"),
         periodo: Yup.string().required("Campo Obrigatório!"),
         matricula: Yup.string().required("Campo Obrigatório!"),
+        foto: Yup.string(),
     });
 
     return (
@@ -164,6 +173,8 @@ export default function CadastroPage() {
                             <Form.Group as={Col} md={6}>
                                 <Form.Label>Telefone:</Form.Label>
                                 <Form.Control
+                                    as={ReactInputMask}
+                                    mask={"(00)00000-0000"}
                                     name="telefone"
                                     type="text"
                                     value={values.telefone}
@@ -192,6 +203,8 @@ export default function CadastroPage() {
                             <Form.Group as={Col} md={3}>
                                 <Form.Label>Cep:</Form.Label>
                                 <Form.Control
+                                    as={ReactInputMask}
+                                    mask={"00000-000"}
                                     name="endereco.cep"
                                     type="text"
                                     value={values?.endereco?.cep}
@@ -392,7 +405,9 @@ export default function CadastroPage() {
                                     }
                                 >
                                     <option>Selecione</option>
-                                    <option>Análise e Desenvolvimento de Sistemas</option>
+                                    <option>
+                                        Análise e Desenvolvimento de Sistemas
+                                    </option>
                                     <option>Jogos Digitais</option>
                                     <option>Enfermagem</option>
                                 </Form.Select>
@@ -408,7 +423,9 @@ export default function CadastroPage() {
                                     value={values?.periodo}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
-                                    isValid={touched?.periodo && !errors?.periodo}
+                                    isValid={
+                                        touched?.periodo && !errors?.periodo
+                                    }
                                     isInvalid={
                                         touched?.periodo && !!errors?.periodo
                                     }
@@ -425,9 +442,11 @@ export default function CadastroPage() {
                         </Row>
 
                         <Row>
-                        <Form.Group as={Col} md={4}>
+                            <Form.Group as={Col} md={4}>
                                 <Form.Label>Matrícula:</Form.Label>
                                 <Form.Control
+                                    as={ReactInputMask}
+                                    mask={"00000000000"}
                                     name="matricula"
                                     type="text"
                                     value={values.matricula}
@@ -442,6 +461,22 @@ export default function CadastroPage() {
                                 />
                                 <Form.Control.Feedback type="invalid">
                                     {errors.matricula}
+                                </Form.Control.Feedback>
+                            </Form.Group>
+
+                            <Form.Group as={Col}>
+                                <Form.Label>Link da Foto:</Form.Label>
+                                <Form.Control
+                                    name="foto"
+                                    type="text"
+                                    value={values.foto}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    isValid={touched.foto && !errors.foto}
+                                    isInvalid={touched.foto && !!errors.foto}
+                                />
+                                <Form.Control.Feedback type="invalid">
+                                    {errors.foto}
                                 </Form.Control.Feedback>
                             </Form.Group>
                         </Row>

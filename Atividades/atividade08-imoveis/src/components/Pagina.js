@@ -4,20 +4,19 @@ export default function Pagina({ children, titulo }) {
     return (
         <>
             {/* barra navegação */}
-            <Navbar expand="lg" className="bg-body-tertiary">
+            <Navbar expand="lg" className="bg-dark" data-bs-theme='dark'>
                 <Container>
-                    <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+                    <Navbar.Brand href="/">Home</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
-                            <Nav.Link href="#home">Home</Nav.Link>
-                            <Nav.Link href="#link">Link</Nav.Link>
+                           
                             <NavDropdown
-                                title="Dropdown"
+                                title="Formulários"
                                 id="basic-nav-dropdown"
                             >
-                                <NavDropdown.Item href="#action/3.1">
-                                    Action
+                                <NavDropdown.Item href="/formularios/imoveis">
+                                    Cadastrar Imóvel
                                 </NavDropdown.Item>
                                 
                                 

@@ -2,6 +2,8 @@
 import { Formik } from "formik";
 import Pagina from "../../../components/Pagina";
 import { Button, Col, Form, Row } from "react-bootstrap";
+import * as Yup from "yup";
+import ReactInputMask from "react-input-mask";
 
 export default function ImoveisPage() {
     const initialValues = {
@@ -30,9 +32,46 @@ export default function ImoveisPage() {
             email: "",
         },
     };
-    const validationSchema = 0;
+    const validationSchema = Yup.object().shape({
+        tipo: Yup.string().required("Campo Obrigatório!"),
+        finalidade: Yup.string().required("Campo Obrigatório!"),
+        valor: Yup.string().required("Campo Obrigatório!"),
+        area: Yup.string().required("Campo Obrigatório!"),
+        quartos: Yup.string().required("Campo Obrigatório!"),
+        banheiros: Yup.string().required("Campo Obrigatório!"),
+        descricao: Yup.string().required("Campo Obrigatório!"),
+        foto: Yup.string().required("Campo Obrigatório!"),
+        vagasGaragem: Yup.string().required("Campo Obrigatório!"),
+        endereco: Yup.object().shape({
+            cep: Yup.string().required("Campo Obrigatório!"),
+            logradouro: Yup.string().required("Campo Obrigatório!"),
+            numero: Yup.string().required("Campo Obrigatório!"),
+            complemento: Yup.string().required("Campo Obrigatório!"),
+            bairro: Yup.string().required("Campo Obrigatório!"),
+            cidade: Yup.string().required("Campo Obrigatório!"),
+            UF: Yup.string().required("Campo Obrigatório!"),
+        }),
+        proprietario: Yup.object().shape({
+            nome: Yup.string().required("Campo Obrigatório!"),
+            CPF: Yup.string().required("Campo Obrigatório!"),
+            telefone: Yup.string().required("Campo Obrigatório!"),
+            email: Yup.string()
+                .email("Insira um e-mail válido!")
+                .required("Campo Obrigatório!"),
+        }),
+    });
 
-    function cadastro(imovel) {}
+    function cadastro(imovel) {
+        console.log(imovel);
+
+        const imoveis = JSON.parse(localStorage.getItem("imoveis")) || [];
+
+        imoveis.push(imovel);
+
+        localStorage.setItem("imoveis", JSON.stringify(imoveis));
+
+        alert("Imóvel cadastrado!");
+    }
 
     return (
         <Pagina titulo={"Cadastro de Imóveis"}>
@@ -52,7 +91,7 @@ export default function ImoveisPage() {
                     handleBlur,
                 }) => (
                     <Form onSubmit={handleSubmit}>
-                        <div>
+                        <div className="text-center">
                             <h3 className="display-5">Dados do Imóvel</h3>
                             <hr />
                         </div>
@@ -67,8 +106,8 @@ export default function ImoveisPage() {
                                     value={values.tipo}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
-                                    isValid={touched?.tipo && !errors.tipo}
-                                    isInvalid={touched?.tipo && !!errors.tipo}
+                                    isValid={touched?.tipo && !errors?.tipo}
+                                    isInvalid={touched?.tipo && !!errors?.tipo}
                                 >
                                     <option>Selecione</option>
                                     <option>Casa</option>
@@ -76,8 +115,8 @@ export default function ImoveisPage() {
                                     <option>Terreno</option>
                                     <option>Sala Comercial</option>
                                 </Form.Select>
-                                <Form.Control.Feedback>
-                                    {errors?.tipo}
+                                <Form.Control.Feedback type="invalid">
+                                    {errors.tipo}
                                 </Form.Control.Feedback>
                             </Form.Group>
 
@@ -104,7 +143,7 @@ export default function ImoveisPage() {
                                     <option>Venda</option>
                                     <option>Aluguel</option>
                                 </Form.Select>
-                                <Form.Control.Feedback>
+                                <Form.Control.Feedback type="invalid">
                                     {errors?.finalidade}
                                 </Form.Control.Feedback>
                             </Form.Group>
@@ -125,7 +164,7 @@ export default function ImoveisPage() {
                                     isValid={touched?.valor && !errors.valor}
                                     isInvalid={touched?.valor && !!errors.valor}
                                 />
-                                <Form.Control.Feedback>
+                                <Form.Control.Feedback type="invalid">
                                     {errors?.valor}
                                 </Form.Control.Feedback>
                             </Form.Group>
@@ -144,7 +183,7 @@ export default function ImoveisPage() {
                                     isValid={touched?.area && !errors.area}
                                     isInvalid={touched?.area && !!errors.area}
                                 />
-                                <Form.Control.Feedback>
+                                <Form.Control.Feedback type="invalid">
                                     {errors?.area}
                                 </Form.Control.Feedback>
                             </Form.Group>
@@ -167,7 +206,7 @@ export default function ImoveisPage() {
                                         touched?.quartos && !!errors.quartos
                                     }
                                 />
-                                <Form.Control.Feedback>
+                                <Form.Control.Feedback type="invalid">
                                     {errors?.quartos}
                                 </Form.Control.Feedback>
                             </Form.Group>
@@ -190,7 +229,7 @@ export default function ImoveisPage() {
                                         touched?.banheiros && !!errors.banheiros
                                     }
                                 />
-                                <Form.Control.Feedback>
+                                <Form.Control.Feedback type="invalid">
                                     {errors?.banheiros}
                                 </Form.Control.Feedback>
                             </Form.Group>
@@ -215,7 +254,7 @@ export default function ImoveisPage() {
                                         touched?.descricao && !!errors.descricao
                                     }
                                 />
-                                <Form.Control.Feedback>
+                                <Form.Control.Feedback type="invalid">
                                     {errors?.descricao}
                                 </Form.Control.Feedback>
                             </Form.Group>
@@ -234,7 +273,7 @@ export default function ImoveisPage() {
                                     isValid={touched?.foto && !errors.foto}
                                     isInvalid={touched?.foto && !!errors.foto}
                                 />
-                                <Form.Control.Feedback>
+                                <Form.Control.Feedback type="invalid">
                                     {errors?.foto}
                                 </Form.Control.Feedback>
                             </Form.Group>
@@ -259,13 +298,13 @@ export default function ImoveisPage() {
                                         !!errors.vagasGaragem
                                     }
                                 />
-                                <Form.Control.Feedback>
+                                <Form.Control.Feedback type="invalid">
                                     {errors?.vagasGaragem}
                                 </Form.Control.Feedback>
                             </Form.Group>
                         </Row>
 
-                        <div>
+                        <div className="my-2 text-center">
                             <h4 className="display-6">Endereço</h4>
                             <hr />
                         </div>
@@ -276,6 +315,8 @@ export default function ImoveisPage() {
                                     <strong>CEP</strong>{" "}
                                 </Form.Label>
                                 <Form.Control
+                                    as={ReactInputMask}
+                                    mask={"99999-999"}
                                     name="endereco.cep"
                                     type="text"
                                     value={values.endereco?.cep}
@@ -290,7 +331,7 @@ export default function ImoveisPage() {
                                         !!errors.endereco?.cep
                                     }
                                 />
-                                <Form.Control.Feedback>
+                                <Form.Control.Feedback type="invalid">
                                     {errors?.endereco?.cep}
                                 </Form.Control.Feedback>
                             </Form.Group>
@@ -314,7 +355,7 @@ export default function ImoveisPage() {
                                         !!errors.endereco?.logradouro
                                     }
                                 />
-                                <Form.Control.Feedback>
+                                <Form.Control.Feedback type="invalid">
                                     {errors?.endereco?.logradouro}
                                 </Form.Control.Feedback>
                             </Form.Group>
@@ -338,7 +379,7 @@ export default function ImoveisPage() {
                                         !!errors.endereco?.numero
                                     }
                                 />
-                                <Form.Control.Feedback>
+                                <Form.Control.Feedback type="invalid">
                                     {errors?.endereco?.numero}
                                 </Form.Control.Feedback>
                             </Form.Group>
@@ -362,13 +403,13 @@ export default function ImoveisPage() {
                                         !!errors.endereco?.complemento
                                     }
                                 />
-                                <Form.Control.Feedback>
+                                <Form.Control.Feedback type="invalid">
                                     {errors?.endereco?.complemento}
                                 </Form.Control.Feedback>
                             </Form.Group>
                         </Row>
 
-                        <Row>
+                        <Row className="mt-2">
                             <Form.Group as={Col} md={4}>
                                 <Form.Label>
                                     {" "}
@@ -389,7 +430,7 @@ export default function ImoveisPage() {
                                         !!errors.endereco?.bairro
                                     }
                                 />
-                                <Form.Control.Feedback>
+                                <Form.Control.Feedback type="invalid">
                                     {errors?.endereco?.bairro}
                                 </Form.Control.Feedback>
                             </Form.Group>
@@ -413,7 +454,7 @@ export default function ImoveisPage() {
                                         !!errors.endereco?.cidade
                                     }
                                 />
-                                <Form.Control.Feedback>
+                                <Form.Control.Feedback type="invalid">
                                     {errors?.endereco?.cidade}
                                 </Form.Control.Feedback>
                             </Form.Group>
@@ -423,6 +464,8 @@ export default function ImoveisPage() {
                                     <strong>UF</strong>{" "}
                                 </Form.Label>
                                 <Form.Control
+                                    as={ReactInputMask}
+                                    mask={"aa"}
                                     name="endereco.UF"
                                     type="text"
                                     value={values.endereco?.UF}
@@ -437,13 +480,13 @@ export default function ImoveisPage() {
                                         !!errors.endereco?.UF
                                     }
                                 />
-                                <Form.Control.Feedback>
+                                <Form.Control.Feedback type="invalid">
                                     {errors?.endereco?.UF}
                                 </Form.Control.Feedback>
                             </Form.Group>
                         </Row>
 
-                        <div>
+                        <div className="my-2 text-center">
                             <h4 className="display-6">Proprietário</h4>
                             <hr />
                         </div>
@@ -468,7 +511,7 @@ export default function ImoveisPage() {
                                         !!errors.proprietario?.nome
                                     }
                                 />
-                                <Form.Control.Feedback>
+                                <Form.Control.Feedback type="invalid">
                                     {errors?.proprietario?.nome}
                                 </Form.Control.Feedback>
                             </Form.Group>
@@ -478,6 +521,8 @@ export default function ImoveisPage() {
                                     <strong>CPF</strong>{" "}
                                 </Form.Label>
                                 <Form.Control
+                                    as={ReactInputMask}
+                                    mask={"999999999-99"}
                                     name="proprietario.CPF"
                                     type="text"
                                     value={values.proprietario?.CPF}
@@ -492,34 +537,36 @@ export default function ImoveisPage() {
                                         !!errors.proprietario?.CPF
                                     }
                                 />
-                                <Form.Control.Feedback>
+                                <Form.Control.Feedback type="invalid">
                                     {errors?.proprietario?.CPF}
                                 </Form.Control.Feedback>
                             </Form.Group>
                         </Row>
-                        <Row>
+                        <Row className="mt-2">
                             <Form.Group as={Col}>
                                 <Form.Label>
                                     {" "}
                                     <strong>Telefone</strong>{" "}
                                 </Form.Label>
                                 <Form.Control
+                                    as={ReactInputMask}
+                                    mask={"+99 (99)99999-9999"}
                                     name="proprietario.telefone"
                                     type="text"
                                     value={values.proprietario?.telefone}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                     isValid={
-                                        touched?.proprietario?.telefone &&
+                                        touched.proprietario?.telefone &&
                                         !errors.proprietario?.telefone
                                     }
                                     isInvalid={
-                                        touched?.proprietario?.telefone &&
+                                        touched.proprietario?.telefone &&
                                         !!errors.proprietario?.telefone
                                     }
                                 />
-                                <Form.Control.Feedback>
-                                    {errors?.proprietario?.telefone}
+                                <Form.Control.Feedback type="invalid">
+                                    {errors.proprietario?.telefone}
                                 </Form.Control.Feedback>
                             </Form.Group>
                             <Form.Group as={Col}>
@@ -528,8 +575,9 @@ export default function ImoveisPage() {
                                     <strong>Email</strong>{" "}
                                 </Form.Label>
                                 <Form.Control
+                                    placeholder="example@email.com"
                                     name="proprietario.email"
-                                    type="text"
+                                    type="email"
                                     value={values.proprietario?.email}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
@@ -542,7 +590,7 @@ export default function ImoveisPage() {
                                         !!errors.proprietario?.email
                                     }
                                 />
-                                <Form.Control.Feedback>
+                                <Form.Control.Feedback type="invalid">
                                     {errors?.proprietario?.email}
                                 </Form.Control.Feedback>
                             </Form.Group>

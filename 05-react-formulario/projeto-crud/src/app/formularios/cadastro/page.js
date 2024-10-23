@@ -15,6 +15,8 @@ export default function CadastroPage() {
         alunos.push(aluno)
 
         localStorage.setItem('alunos', JSON.stringify(alunos))
+
+        alert('Aluno cadastrado com sucesso!')
     }
 
     const initialValues = {
@@ -174,7 +176,7 @@ export default function CadastroPage() {
                                 <Form.Label>Telefone:</Form.Label>
                                 <Form.Control
                                     as={ReactInputMask}
-                                    mask={"(00)00000-0000"}
+                                    mask={"(99)99999-9999"}
                                     name="telefone"
                                     type="text"
                                     value={values.telefone}
@@ -204,7 +206,7 @@ export default function CadastroPage() {
                                 <Form.Label>Cep:</Form.Label>
                                 <Form.Control
                                     as={ReactInputMask}
-                                    mask={"00000-000"}
+                                    mask={"99999-999"}
                                     name="endereco.cep"
                                     type="text"
                                     value={values?.endereco?.cep}
@@ -446,7 +448,7 @@ export default function CadastroPage() {
                                 <Form.Label>Matrícula:</Form.Label>
                                 <Form.Control
                                     as={ReactInputMask}
-                                    mask={"00000000000"}
+                                    mask={"99999999999"}
                                     name="matricula"
                                     type="text"
                                     value={values.matricula}

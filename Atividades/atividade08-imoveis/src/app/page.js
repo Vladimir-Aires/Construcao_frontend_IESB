@@ -1,7 +1,11 @@
-import React from 'react'
+'use client'
 
-export default function page() {
+import Pagina from '@/components/Pagina'
+
+export default function HomePage() {
   return (
-    <div>page</div>
+    <Pagina titulo={'Página Inicial'}>
+
+    </Pagina>
   )
 }

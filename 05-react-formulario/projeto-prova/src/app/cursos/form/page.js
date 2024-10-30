@@ -1,75 +1,76 @@
 "use client";
 
 import Pagina from "@/components/Pagina";
-import apiLocalidades from "@/services/apiLocalidades";
+
 import { Formik } from "formik";
-import { useEffect, useState } from "react";
+
 import { Button, Col, Form, Row } from "react-bootstrap";
 import * as Yup from "yup";
 import { v4 } from "uuid";
 import { useRouter } from "next/navigation";
-import { FaArrowLeft, FaCheck } from "react-icons/fa"
+import { FaArrowLeft, FaCheck } from "react-icons/fa";
 
-export default function FaculdadeFormPage(props) {
+export default function CursoFormPage(props) {
     const router = useRouter();
 
-    const [paises, setPaises] = useState([]);
-    const [estados, setEstados] = useState([]);
-    const [cidades, setCidades] = useState([]);
-
+    // Consultar faculdades
     const faculdades = JSON.parse(localStorage.getItem("faculdades")) || [];
 
+    // Consultar lista de cursos. Iniciar uma lista vazia caso não haja
+    const cursos = JSON.parse(localStorage.getItem("cursos")) || [];
+
     // Recuperação de id para edição
-    const id = props.searchParams.id
-    console.log(props.searchParams.id)
+    const id = props.searchParams.id;
+    console.log(props.searchParams.id);
 
-    const faculdadeEditada = faculdades.find(item => item.id == id)
-
-    useEffect(() => {
-        apiLocalidades.get("/paises").then((response) => {
-            console.log(response.data);
-            setPaises(response.data);
-        });
-
-        apiLocalidades.get("estados?orderBy=nome").then((response) => {
-            console.log("Estados: ", response.data);
-            setEstados(response.data);
-        });
-    }, []);
+    const cursoEditado = cursos.find((item) => item.id == id);
+    console.log(cursoEditado);
 
     function salvar(dados) {
-        faculdadeEditada
-            ? (Object.assign(faculdadeEditada, dados),
-              localStorage.setItem("faculdades", JSON.stringify(faculdades)))
+        cursoEditado
+            ? (Object.assign(cursoEditado, dados),
+              localStorage.setItem("cursos", JSON.stringify(cursos)))
             : ((dados.id = v4()),
-              faculdades.push(dados),
-              localStorage.setItem("faculdades", JSON.stringify(faculdades)));
+              cursos.push(dados),
+              localStorage.setItem("cursos", JSON.stringify(cursos)));
 
-        alert("Faculdade criada com sucesso!");
-        router.push("/faculdades");
+        alert("Curso criado com sucesso!");
+        router.push("/cursos");
     }
+
+    const listaAreas = [
+        "Ciências Exatas",
+        "Ciências Humanas",
+        "Tecnologia da Informação",
+        "Engenharia",
+    ];
 
     const initialValues = {
         nome: "",
-        pais: "Brasil",
-        estado: "",
-        cidade: "",
-        endereco: "",
+        descricao: "",
+        area: "",
+        nota: "",
+        status: "",
+        faculdade: "",
     };
 
     const validationSchema = Yup.object().shape({
         nome: Yup.string().required("Campo Obrigatório!"),
-        pais: Yup.string().required("Campo Obrigatório!"),
-        estado: Yup.string(),
-        cidade: Yup.string(),
-        endereco: Yup.string().required("Campo Obrigatório!"),
+        descricao: Yup.string().required("Campo Obrigatório!"),
+        area: Yup.string().required("Campo Obrigatório!"),
+        nota: Yup.number()
+            .min(1, "Nota Inválida")
+            .max(5, "Nota Inválida")
+            .required("Campo Obrigatório!"),
+        status: Yup.string().required("Campo Obrigatório!"),
+        faculdade: Yup.string().required("Campo Obrigatório!"),
     });
 
     return (
-        <Pagina titulo={"Cadastro de Faculdade"}>
+        <Pagina titulo={"Cadastro de Curso"}>
             {/* formulário */}
             <Formik
-                initialValues={faculdadeEditada || initialValues}
+                initialValues={cursoEditado || initialValues}
                 validationSchema={validationSchema}
                 onSubmit={salvar}
             >
@@ -83,20 +84,6 @@ export default function FaculdadeFormPage(props) {
                 }) => {
                     //ações do formulário
                     //   debug
-                    console.log("Debug:");
-                    console.log({ values, errors, touched });
-
-                    useEffect(() => {
-                        console.log("Estado mexido!!!");
-                        if (values.estado !== "") {
-                            apiLocalidades
-                                .get(`/estados/${values.estado}/municipios`)
-                                .then((response) => {
-                                    console.log("cidades: ", response.data);
-                                    setCidades(response.data);
-                                });
-                        }
-                    }, [values.estado]);
 
                     return (
                         <Form onSubmit={handleSubmit}>
@@ -118,117 +105,133 @@ export default function FaculdadeFormPage(props) {
                                         {errors.nome}
                                     </Form.Control.Feedback>
                                 </Form.Group>
-                            </Row>
 
-                            <Row className="mb-2">
                                 <Form.Group as={Col}>
-                                    <Form.Label>Endereço</Form.Label>
+                                    <Form.Label>Descrição:</Form.Label>
                                     <Form.Control
-                                        name="endereco"
+                                        name="descricao"
                                         type="text"
-                                        value={values.endereco}
+                                        value={values.descricao}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
                                         isValid={
-                                            touched.endereco && !errors.endereco
+                                            touched.descricao &&
+                                            !errors.descricao
                                         }
                                         isInvalid={
-                                            touched.endereco &&
-                                            !!errors.endereco
+                                            touched.descricao &&
+                                            !!errors.descricao
                                         }
                                     />
                                     <Form.Control.Feedback type="invalid">
-                                        {errors.endereco}
+                                        {errors.descricao}
                                     </Form.Control.Feedback>
                                 </Form.Group>
                             </Row>
 
                             <Row className="mb-2">
                                 <Form.Group as={Col}>
-                                    <Form.Label>País</Form.Label>
+                                    <Form.Label>Área:</Form.Label>
                                     <Form.Select
-                                        name="pais"
-                                        value={values.pais}
+                                        name="area"
+                                        value={values.area}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
-                                        isValid={touched.pais && !errors.pais}
+                                        isValid={touched.area && !errors.area}
                                         isInvalid={
-                                            touched.pais && !!errors.pais
+                                            touched.area && !!errors.area
                                         }
                                     >
                                         <option value="">Selecione</option>
-                                        {paises.map((pais) => (
-                                            <option value={pais.nome}>
-                                                {pais.nome}
-                                            </option>
+                                        {listaAreas.map((area) => (
+                                            <option value={area}>{area}</option>
                                         ))}
                                     </Form.Select>
                                     <Form.Control.Feedback type="invalid">
-                                        {errors.pais}
+                                        {errors.area}
                                     </Form.Control.Feedback>
                                 </Form.Group>
 
                                 <Form.Group as={Col}>
-                                    <Form.Label>Estado</Form.Label>
+                                    <Form.Label>Nota:</Form.Label>
+                                    <Form.Control
+                                        name="nota"
+                                        type="number"
+                                        max={5}
+                                        min={1}
+                                        value={values.nota}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        isValid={touched.nota && !errors.nota}
+                                        isInvalid={
+                                            touched.nota && !!errors.nota
+                                        }
+                                    />
+                                    <Form.Control.Feedback type="invalid">
+                                        {errors.nota}
+                                    </Form.Control.Feedback>
+                                </Form.Group>
+                            </Row>
+
+                            <Row className="mb-2">
+                                <Form.Group as={Col}>
+                                    <Form.Label>Status:</Form.Label>
                                     <Form.Select
-                                        name="estado"
-                                        value={values.estado}
-                                        disabled={values.pais !== "Brasil"}
+                                        name="status"
+                                        value={values.status}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
                                         isValid={
-                                            touched.estado && !errors.estado
+                                            touched.status && !errors.status
                                         }
                                         isInvalid={
-                                            touched.estado && !!errors.estado
+                                            touched.status && !!errors.status
                                         }
                                     >
                                         <option value="">Selecione</option>
-                                        {estados.map((estado) => (
-                                            <option value={estado.sigla}>
-                                                {estado.sigla}
-                                            </option>
-                                        ))}
+                                        <option value="ativo">Ativo</option>
+                                        <option value="inativo">Inativo</option>
                                     </Form.Select>
                                     <Form.Control.Feedback type="invalid">
-                                        {errors.estado}
+                                        {errors.status}
                                     </Form.Control.Feedback>
                                 </Form.Group>
 
                                 <Form.Group as={Col}>
-                                    <Form.Label>Cidade</Form.Label>
+                                    <Form.Label>Faculdade:</Form.Label>
                                     <Form.Select
-                                        name="cidade"
-                                        value={values.cidade}
-                                        disabled={values.pais !== "Brasil"}
+                                        name="faculdade"
+                                        value={values.faculdade}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
                                         isValid={
-                                            touched.cidade && !errors.cidade
+                                            touched.faculdade &&
+                                            !errors.faculdade
                                         }
                                         isInvalid={
-                                            touched.cidade && !!errors.cidade
+                                            touched.faculdade &&
+                                            !!errors.faculdade
                                         }
                                     >
                                         <option value="">Selecione</option>
-                                        {cidades.map((cidade) => (
-                                            <option value={cidade.nome}>
-                                                {cidade.nome}
+                                        {faculdades.map((faculdade) => (
+                                            <option value={faculdade.nome}>
+                                                {faculdade.nome}
                                             </option>
                                         ))}
                                     </Form.Select>
                                     <Form.Control.Feedback type="invalid">
-                                        {errors.cidade}
+                                        {errors.faculdade}
                                     </Form.Control.Feedback>
                                 </Form.Group>
                             </Row>
 
                             <Form.Group className="text-end">
                                 <Button className="me-2" href="/faculdades">
-                                  <FaArrowLeft/> Voltar
+                                    <FaArrowLeft /> Voltar
                                 </Button>
                                 <Button type="submit" variant="success">
-                                   <FaCheck/> Enviar
+                                    <FaCheck /> Enviar
                                 </Button>
                             </Form.Group>
                         </Form>

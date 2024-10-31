@@ -66,7 +66,7 @@ export default function FaculdadesPage() {
                                 <td>
                                     {/* botões de ações */}
 
-                                    <Button className="my-2" href={`/disciplinas/form?id=${disciplina.id}`} variant="warning"> <FaPenAlt /> </Button>
+                                    <Button className="my-2 mx-2" href={`/disciplinas/form?id=${disciplina.id}`} variant="warning"> <FaPenAlt /> </Button>
                                     <Button variant="danger" onClick={() => excluir(disciplina)}> <IoMdClose /> </Button>
 
                                 </td>

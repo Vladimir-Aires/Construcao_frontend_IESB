@@ -8,22 +8,28 @@ import { Button, Col, Form, Row } from "react-bootstrap";
 import * as Yup from "yup";
 import { v4 } from "uuid";
 import { useRouter } from "next/navigation";
-import { FaArrowLeft, FaCheck } from "react-icons/fa";
+import { FaArrowLeft, FaCheck, FaTrash } from "react-icons/fa";
+import { useEffect, useState } from "react";
 
 export default function DisciplinaFormPage(props) {
+
+    const [Professores, setProfessores] = useState([]);
+     
+
     const router = useRouter();
 
     // Consultar ou criar um armazenamento de disciplinas
     const disciplinas = JSON.parse(localStorage.getItem("disciplinas")) || [];
 
-    // Consultar lista de cursos. Iniciar uma lista vazia caso não haja
+    // Consultar lista de cursos e professores. Iniciar uma lista vazia caso não haja
     const cursos = JSON.parse(localStorage.getItem("cursos")) || [];
+    const professores = JSON.parse(localStorage.getItem("professores")) || [];
 
     // Recuperação de id para edição
     const id = props.searchParams.id;
     console.log(props.searchParams.id);
 
-    const disciplinaEditada = cursos.find((item) => item.id == id);
+    const disciplinaEditada = disciplinas.find((item) => item.id == id);
     console.log(disciplinaEditada);
 
     function salvar(dados) {
@@ -55,6 +61,8 @@ export default function DisciplinaFormPage(props) {
         professor: Yup.string().required("Campo Obrigatório!"),
     });
 
+    
+
     return (
         <Pagina titulo={"Cadastro de Disciplina"}>
             {/* formulário */}
@@ -72,11 +80,19 @@ export default function DisciplinaFormPage(props) {
                     handleSubmit,
                     handleReset,
                 }) => {
+
+                    useEffect(() => {
+                        
+                        const filtroProfessores = professores.filter(professor => professor.curso == values.curso)
+                        setProfessores(filtroProfessores)
+
+                    },[values.curso])
+
                     return (
                         <Form onSubmit={handleSubmit}>
                             <Row className="mb-2">
                                 <Form.Group as={Col}>
-                                    <Form.Label>Nome</Form.Label>
+                                    <Form.Label>Nome:</Form.Label>
                                     <Form.Control
                                         name="nome"
                                         type="text"
@@ -117,50 +133,6 @@ export default function DisciplinaFormPage(props) {
                             </Row>
 
                             <Row className="mb-2">
-                                {/* <Form.Group as={Col}>
-                                    <Form.Label>Área:</Form.Label>
-                                    <Form.Select
-                                        name="area"
-                                        value={values.area}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        isValid={touched.area && !errors.area}
-                                        isInvalid={
-                                            touched.area && !!errors.area
-                                        }
-                                    >
-                                        <option value="">Selecione</option>
-                                        {listaAreas.map((area) => (
-                                            <option value={area}>{area}</option>
-                                        ))}
-                                    </Form.Select>
-                                    <Form.Control.Feedback type="invalid">
-                                        {errors.area}
-                                    </Form.Control.Feedback>
-                                </Form.Group> */}
-
-                                <Form.Group as={Col}>
-                                    <Form.Label>Nota:</Form.Label>
-                                    <Form.Control
-                                        name="nota"
-                                        type="number"
-                                        max={5}
-                                        min={1}
-                                        value={values.nota}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        isValid={touched.nota && !errors.nota}
-                                        isInvalid={
-                                            touched.nota && !!errors.nota
-                                        }
-                                    />
-                                    <Form.Control.Feedback type="invalid">
-                                        {errors.nota}
-                                    </Form.Control.Feedback>
-                                </Form.Group>
-                            </Row>
-
-                            <Row className="mb-2">
                                 <Form.Group as={Col}>
                                     <Form.Label>Status:</Form.Label>
                                     <Form.Select
@@ -168,9 +140,7 @@ export default function DisciplinaFormPage(props) {
                                         value={values.status}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
-                                        isValid={
-                                            touched.status && !errors.status
-                                        }
+                                        isValid={touched.status && !errors.status}
                                         isInvalid={
                                             touched.status && !!errors.status
                                         }
@@ -183,39 +153,64 @@ export default function DisciplinaFormPage(props) {
                                         {errors.status}
                                     </Form.Control.Feedback>
                                 </Form.Group>
-
-                                {/* <Form.Group as={Col}>
-                                    <Form.Label>Faculdade:</Form.Label>
+                                <Form.Group as={Col}>
+                                    <Form.Label>Cursos:</Form.Label>
                                     <Form.Select
-                                        name="faculdade"
-                                        value={values.faculdade}
+                                        name="curso"
+                                        value={values.curso}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
-                                        isValid={
-                                            touched.faculdade &&
-                                            !errors.faculdade
-                                        }
+                                        isValid={touched.curso && !errors.curso}
                                         isInvalid={
-                                            touched.faculdade &&
-                                            !!errors.faculdade
+                                            touched.curso && !!errors.curso
                                         }
                                     >
                                         <option value="">Selecione</option>
-                                        {faculdades.map((faculdade) => (
-                                            <option value={faculdade.nome}>
-                                                {faculdade.nome}
+                                        {cursos.map((curso) => (
+                                            <option value={curso.nome}>{curso.nome}</option>
+                                        ))}
+                                    </Form.Select>
+                                    <Form.Control.Feedback type="invalid">
+                                        {errors.curso}
+                                    </Form.Control.Feedback>
+                                </Form.Group>
+                            </Row>
+
+                            <Row className="mb-2">
+                                
+
+                                <Form.Group as={Col}>
+                                    <Form.Label>Professor:</Form.Label>
+                                    <Form.Select
+                                        name="professor"
+                                        value={values.professor}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        isValid={
+                                            touched.professor &&
+                                            !errors.professor
+                                        }
+                                        isInvalid={
+                                            touched.professor &&
+                                            !!errors.professor
+                                        }
+                                    >
+                                        <option value="">Selecione</option>
+                                        {Professores.map((professor) => (
+                                            <option value={professor.nome}>
+                                                {professor.nome}
                                             </option>
                                         ))}
                                     </Form.Select>
                                     <Form.Control.Feedback type="invalid">
-                                        {errors.faculdade}
+                                        {errors.professor}
                                     </Form.Control.Feedback>
-                                </Form.Group> */}
+                                </Form.Group>
                             </Row>
 
                             <Row>
                                 <Form.Group className="text-start" as={Col}>
-                                    <Button href="/disciplinas">
+                                    <Button href="/disciplinas" variant="secondary">
                                         {" "}
                                         <FaArrowLeft /> Voltar
                                     </Button>
@@ -226,7 +221,7 @@ export default function DisciplinaFormPage(props) {
                                         className="me-2"
                                         onClick={handleReset}
                                     >
-                                        <FaArrowLeft /> Limpar
+                                        <FaTrash/> Limpar
                                     </Button>
                                     <Button type="submit" variant="success">
                                         <FaCheck /> Salvar
